@@ -1,3 +1,5 @@
+![mit Status](https://img.shields.io/badge/License-MIT-brightgreen.svg) ![platform](https://img.shields.io/badge/Platform-macOS/iOS-blue.svg) ![Lang](https://img.shields.io/badge/Language-Swift%203.0.1-orange.svg)
+
 ## FileWatcher
 
 <img width="100" alt="img" src="https://rawgit.com/stylekit/img/master/FileWatcher.svg">
