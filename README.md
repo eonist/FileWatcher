@@ -20,4 +20,4 @@ fileWatcher!.event = { /*[weak self]*/ event in//<--The weak self part enables y
 - Better syntax: (courtesy of: [paperlib](https://github.com/paperlib) )
 
 ### Future of filewatcher:
-[wiki]((courtesy of: [paperlib](https://github.com/eonist/FileWatcher/wiki) )) 
+[wiki](https://github.com/eonist/FileWatcher/wiki) 
