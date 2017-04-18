@@ -15,3 +15,9 @@ fileWatcher!.event = { /*[weak self]*/ event in//<--The weak self part enables y
     Swift.print(event.description)//Outputs: a description of the file change
 }
 ```
+### Recent updates:
+- FileWatcher can now be Locally scoped (courtesy of: [paperlib](https://github.com/paperlib) )
+- Better syntax: (courtesy of: [paperlib](https://github.com/paperlib) )
+
+### Future of filewatcher:
+[wiki]((courtesy of: [paperlib](https://github.com/eonist/FileWatcher/wiki) )) 
