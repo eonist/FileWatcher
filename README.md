@@ -14,6 +14,8 @@ fileWatcher!.event = { /*[weak self]*/ event in//<--The weak self part enables y
     Swift.print(self?.someVariable)//Outputs: a variable in your current class
     Swift.print(event.description)//Outputs: a description of the file change
 }
+
+filewatcher.start(); // start monitoring
 ```
 ### Running FileWatcher on a background thread
 
