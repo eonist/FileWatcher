@@ -16,7 +16,7 @@ class FileWatcher{
     var hasStarted = false/*Whether or not the watcher has started yet.*/
     var streamRef:FSEventStreamRef?
     private(set) var lastEventId:FSEventStreamEventId/*<-this needs to be private or an error will happen when in use*/ // The date to start at.
-    var event:((_ fileWatcherEvent:FileWatcherEvent) -> Void)?
+    var callback:((_ fileWatcherEvent:FileWatcherEvent) -> Void)?
     var queue:DispatchQueue?
     init(_ paths:[String], _ sinceWhen:FSEventStreamEventId) {
         self.lastEventId = sinceWhen
@@ -79,7 +79,7 @@ class FileWatcher{
         let paths = Unmanaged<CFArray>.fromOpaque(eventPaths).takeUnretainedValue() as! [String]
         var eventFlagArray = Array(UnsafeBufferPointer(start: eventFlags, count: numEvents))
         for index in 0..<numEvents {
-            fileSystemWatcher.event?(FileWatcherEvent(eventIds![index], paths[index], eventFlags![index]))
+            fileSystemWatcher.callback?(FileWatcherEvent(eventIds![index], paths[index], eventFlags![index]))
         }
         fileSystemWatcher.lastEventId = eventIds![numEvents - 1]//<--i'm not sure if this is needed anymore
     }
