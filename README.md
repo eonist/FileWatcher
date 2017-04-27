@@ -15,7 +15,7 @@ fileWatcher!.event = { /*[weak self]*/ event in//<--The weak self part enables y
     Swift.print(event.description)//Outputs: a description of the file change
 }
 
-filewatcher.start(); // start monitoring
+filewatcher.start() // start monitoring
 ```
 ### Running FileWatcher on a background thread
 
@@ -24,7 +24,7 @@ The above example will run FileWatcher (ie. its callback function) from the curr
 If you'd rather have your callback running on a background thread, you can provide your own queue, and FileWatcher will use that (instead of the default current thread / run loop):
 
 ```swift
-filewatcher.queue = DispatchQueue.global();
+filewatcher.queue = DispatchQueue.global()
 ```
 
 ### Recent updates:
