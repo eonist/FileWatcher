@@ -3,16 +3,13 @@
 
 ## FileWatcher
 
-<img width="100" alt="img" src="https://rawgit.com/stylekit/img/master/FileWatcher.svg">
-
 A simple File watcher in swift. Example code: 
 
 ```swift
-let fileWatcher = FileWatcher(["~/Desktop/test/".tildePath])
+let filewatcher = FileWatcher([NSString(string: "~/Desktop").expandingTildeInPath])
         
-fileWatcher!.callback = { /*[weak self]*/ event in//<--The weak self part enables you to interact with your app in a safe manner, not required
-    Swift.print(self?.someVariable)//Outputs: a variable in your current class
-    Swift.print(event.description)//Outputs: a description of the file change
+fileWatcher!.callback = { event in
+  print("Something happened here: " + event.path)
 }
 
 filewatcher.start() // start monitoring
@@ -27,9 +24,5 @@ If you'd rather have your callback running on a background thread, you can provi
 filewatcher.queue = DispatchQueue.global()
 ```
 
-### Recent updates:
-- FileWatcher can now be Locally scoped (courtesy of: [paperlib](https://github.com/paperlib) )
-- Better syntax: (courtesy of: [paperlib](https://github.com/paperlib) )
-
-### Future of filewatcher:
+### Notes and documentation:
 [wiki](https://github.com/eonist/FileWatcher/wiki) 
