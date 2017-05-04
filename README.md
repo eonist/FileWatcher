@@ -25,5 +25,5 @@ filewatcher.queue = DispatchQueue.global()
 ```
 
 ### Notes and documentation:
-[wiki](https://github.com/eonist/FileWatcher/wiki) 
+[wiki](https://github.com/eonist/FileWatcher/wiki)  
 Swift-Style-Guide: [raywenderlich](https://github.com/raywenderlich/swift-style-guide) 
