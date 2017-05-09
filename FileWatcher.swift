@@ -9,12 +9,8 @@ class FileWatcher{
   private var hasStarted = false
   
   private var streamRef  : FSEventStreamRef?
-  private var lastEventId: FSEventStreamEventId
   
-  init(_ paths:[String], _ sinceWhen:FSEventStreamEventId) {
-    self.lastEventId = sinceWhen
-    self.filePaths = paths
-  }
+  init(_ paths:[String]) { self.filePaths = paths }
   
   /**
    * Start listening for FSEvents
@@ -27,9 +23,12 @@ class FileWatcher{
       retain: retainCallback, release: releaseCallback,
       copyDescription:nil
     )
-        
-    let flags = UInt32(kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagFileEvents)
-    streamRef = FSEventStreamCreate(kCFAllocatorDefault, eventCallback, &context, filePaths as CFArray, lastEventId, 0/*<--latency*/, flags)//Creates an FSEventStream.
+    
+    streamRef = FSEventStreamCreate(
+      kCFAllocatorDefault, eventCallback, &context,
+      filePaths as CFArray,FSEventStreamEventId(kFSEventStreamEventIdSinceNow), 0,
+      UInt32(kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagFileEvents)
+    )
     
     if let queue = queue {
       print("using dispach queue")
@@ -62,7 +61,6 @@ class FileWatcher{
     for index in 0..<numEvents {
       fileSystemWatcher.callback?(FileWatcherEvent(eventIds![index], paths[index], eventFlags![index]))
     }
-    fileSystemWatcher.lastEventId = eventIds![numEvents - 1]//<--i'm not sure if this is needed anymore
   }
   
   private let retainCallback:CFAllocatorRetainCallBack = {(info:UnsafeRawPointer?) in
@@ -75,11 +73,3 @@ class FileWatcher{
   }
 }
 
-extension FileWatcher{
-  /**
-   * Convenince init
-   */
-  convenience init(_ pathsToWatch:[String]) {
-    self.init(pathsToWatch, FSEventStreamEventId(kFSEventStreamEventIdSinceNow))
-  }
-}
