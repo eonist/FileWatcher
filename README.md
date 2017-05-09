@@ -7,11 +7,11 @@ A simple File watcher in swift. Example code:
 
 ```swift
 let filewatcher = FileWatcher([NSString(string: "~/Desktop").expandingTildeInPath])
-        
-fileWatcher!.callback = { event in
+    
+filewatcher.callback = { event in
   print("Something happened here: " + event.path)
 }
-
+    
 filewatcher.start() // start monitoring
 ```
 ### Running FileWatcher on a background thread
