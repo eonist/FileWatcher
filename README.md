@@ -3,7 +3,9 @@
 
 ## FileWatcher
 
-A simple File watcher in swift. Example code: 
+A simple File watcher in swift.
+
+Example (this will monitor your Desktop for any file changes): 
 
 ```swift
 let filewatcher = FileWatcher([NSString(string: "~/Desktop").expandingTildeInPath])
