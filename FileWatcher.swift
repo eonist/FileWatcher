@@ -7,7 +7,6 @@ class FileWatcher{
   var queue    : DispatchQueue?
 
   private var hasStarted = false
-  
   private var streamRef  : FSEventStreamRef?
   
   init(_ paths:[String]) { self.filePaths = paths }
@@ -30,13 +29,7 @@ class FileWatcher{
       UInt32(kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagFileEvents)
     )
     
-    if let queue = queue {
-      print("using dispach queue")
-      FSEventStreamSetDispatchQueue(streamRef!, queue)
-    }else {
-      print("using main run loop")
-      FSEventStreamScheduleWithRunLoop(streamRef!, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue)
-    }
+    selectStreamScheduler()
     FSEventStreamStart(streamRef!)
     hasStarted = true
   }
@@ -45,19 +38,24 @@ class FileWatcher{
    * Stop listening for FSEvents
    */
   func stop() {
-    Swift.print("FileWatcher stop - has started: " + "\(hasStarted)")
-    if(!hasStarted){return} // only stop if it has been started
+    guard hasStarted else { return } // -- make sure we are indeed listening!
+    
     FSEventStreamStop(streamRef!)
     FSEventStreamInvalidate(streamRef!)
     FSEventStreamRelease(streamRef!)
+    
     streamRef = nil
     hasStarted = false
   }
   
-  private let eventCallback:FSEventStreamCallback = {(stream:ConstFSEventStreamRef,contextInfo:UnsafeMutableRawPointer?,numEvents:Int,eventPaths:UnsafeMutableRawPointer,eventFlags:UnsafePointer<FSEventStreamEventFlags>?,eventIds:UnsafePointer<FSEventStreamEventId>?) in
+  private let eventCallback:FSEventStreamCallback = {(
+      stream:ConstFSEventStreamRef, contextInfo:UnsafeMutableRawPointer?, numEvents:Int,
+      eventPaths:UnsafeMutableRawPointer, eventFlags:UnsafePointer<FSEventStreamEventFlags>?,
+      eventIds:UnsafePointer<FSEventStreamEventId>?
+    ) in
     let fileSystemWatcher = Unmanaged<FileWatcher>.fromOpaque(contextInfo!).takeUnretainedValue()
     let paths = Unmanaged<CFArray>.fromOpaque(eventPaths).takeUnretainedValue() as! [String]
-    var eventFlagArray = Array(UnsafeBufferPointer(start: eventFlags, count: numEvents))
+    
     for index in 0..<numEvents {
       fileSystemWatcher.callback?(FileWatcherEvent(eventIds![index], paths[index], eventFlags![index]))
     }
@@ -70,6 +68,16 @@ class FileWatcher{
   
   private let releaseCallback:CFAllocatorReleaseCallBack = {(info:UnsafeRawPointer?) in
     Unmanaged<FileWatcher>.fromOpaque(info!).release()
+  }
+  
+  private func selectStreamScheduler() {
+    if let queue = queue {
+      FSEventStreamSetDispatchQueue(streamRef!, queue)
+    } else {
+      FSEventStreamScheduleWithRunLoop(
+        streamRef!, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue
+      )
+    }
   }
 }
 
