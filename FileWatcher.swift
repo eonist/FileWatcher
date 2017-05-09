@@ -1,12 +1,15 @@
 import Cocoa
 
 class FileWatcher{
-  let filePaths:[String]  // paths to watch - works on folders and file paths
-  var hasStarted = false
-  var streamRef:FSEventStreamRef?
-  private(set) var lastEventId:FSEventStreamEventId
-  var callback:((_ fileWatcherEvent:FileWatcherEvent) -> Void)?
-  var queue:DispatchQueue?
+  let filePaths: [String]  // -- paths to watch - works on folders and file paths
+  
+  var callback : ((_ fileWatcherEvent:FileWatcherEvent) -> Void)?
+  var queue    : DispatchQueue?
+
+  private var hasStarted = false
+  
+  private var streamRef  : FSEventStreamRef?
+  private var lastEventId: FSEventStreamEventId
   
   init(_ paths:[String], _ sinceWhen:FSEventStreamEventId) {
     self.lastEventId = sinceWhen
