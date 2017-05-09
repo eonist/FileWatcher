@@ -17,8 +17,8 @@ class FileWatcher{
    * Start listening for FSEvents
    */
   func start() {
-    Swift.print("FileWatcher start - has started: " + "\(hasStarted)")
-    if(hasStarted){return}/*<--only start if its not already started*/
+    guard !hasStarted else { return } // -- make sure we are not already listening!
+    
     var context = FSEventStreamContext(version: 0, info:nil, retain:nil, release:nil, copyDescription:nil)
     context.info = Unmanaged.passUnretained(self).toOpaque()//this line chached a lot converting to swift 3
     context.retain  = retainCallback/*A locally scoped variable where the FileWatching context can reside*/
