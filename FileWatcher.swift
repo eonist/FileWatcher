@@ -81,3 +81,10 @@ class FileWatcher{
   }
 }
 
+extension FileWatcher {
+  convenience init(_ paths:[String], _ callback: @escaping ((_ fileWatcherEvent:FileWatcherEvent) -> Void)) {
+    self.init(paths)
+    self.callback = callback
+  }
+}
+
