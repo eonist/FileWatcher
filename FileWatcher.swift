@@ -6,8 +6,8 @@ class FileWatcher{
   var callback : ((_ fileWatcherEvent:FileWatcherEvent) -> Void)?
   var queue    : DispatchQueue?
 
-  private var hasStarted = false
   private var streamRef  : FSEventStreamRef?
+  private var hasStarted : Bool { return streamRef != nil }
   
   init(_ paths:[String]) { self.filePaths = paths }
   
@@ -31,7 +31,6 @@ class FileWatcher{
     
     selectStreamScheduler()
     FSEventStreamStart(streamRef!)
-    hasStarted = true
   }
   
   /**
@@ -45,7 +44,6 @@ class FileWatcher{
     FSEventStreamRelease(streamRef!)
     
     streamRef = nil
-    hasStarted = false
   }
   
   private let eventCallback:FSEventStreamCallback = {(
