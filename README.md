@@ -1,6 +1,6 @@
 ![mit Status](https://img.shields.io/badge/License-MIT-brightgreen.svg)
 ![platform](https://img.shields.io/badge/Platform-macOS-blue.svg)
-![Lang](https://img.shields.io/badge/Language-Swift%203.0.1-orange.svg)
+![Lang](https://img.shields.io/badge/Language-Swift%205.0-orange.svg)
 [![codebeat badge](https://codebeat.co/badges/041905ca-d1a9-4090-81b1-564282200af4)](https://codebeat.co/projects/github-com-eonist-filewatcher-master)
 [![SwiftLint Sindre](https://img.shields.io/badge/SwiftLint-Sindre-hotpink.svg)](https://github.com/sindresorhus/swiftlint-sindre)
 
