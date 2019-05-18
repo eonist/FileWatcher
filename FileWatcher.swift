@@ -1,88 +1,57 @@
 import Cocoa
 
-class FileWatcher{
-  let filePaths: [String]  // -- paths to watch - works on folders and file paths
-  
-  var callback : ((_ fileWatcherEvent:FileWatcherEvent) -> Void)?
-  var queue    : DispatchQueue?
-
-  private var streamRef  : FSEventStreamRef?
-  private var hasStarted : Bool { return streamRef != nil }
-  
-  init(_ paths:[String]) { self.filePaths = paths }
-  
-  /**
-   * Start listening for FSEvents
-   */
-  func start() {
-    guard !hasStarted else { return } // -- make sure we are not already listening!
-    
-    var context = FSEventStreamContext(
-      version: 0, info: Unmanaged.passUnretained(self).toOpaque(),
-      retain: retainCallback, release: releaseCallback,
-      copyDescription:nil
-    )
-    
-    streamRef = FSEventStreamCreate(
-      kCFAllocatorDefault, eventCallback, &context,
-      filePaths as CFArray,FSEventStreamEventId(kFSEventStreamEventIdSinceNow), 0,
-      UInt32(kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagFileEvents)
-    )
-    
-    selectStreamScheduler()
-    FSEventStreamStart(streamRef!)
-  }
-  
-  /**
-   * Stop listening for FSEvents
-   */
-  func stop() {
-    guard hasStarted else { return } // -- make sure we are indeed listening!
-    
-    FSEventStreamStop(streamRef!)
-    FSEventStreamInvalidate(streamRef!)
-    FSEventStreamRelease(streamRef!)
-    
-    streamRef = nil
-  }
-  
-  private let eventCallback:FSEventStreamCallback = {(
-      stream:ConstFSEventStreamRef, contextInfo:UnsafeMutableRawPointer?, numEvents:Int,
-      eventPaths:UnsafeMutableRawPointer, eventFlags:UnsafePointer<FSEventStreamEventFlags>?,
-      eventIds:UnsafePointer<FSEventStreamEventId>?
-    ) in
-    let fileSystemWatcher = Unmanaged<FileWatcher>.fromOpaque(contextInfo!).takeUnretainedValue()
-    let paths = Unmanaged<CFArray>.fromOpaque(eventPaths).takeUnretainedValue() as! [String]
-    
-    for index in 0..<numEvents {
-      fileSystemWatcher.callback?(FileWatcherEvent(eventIds![index], paths[index], eventFlags![index]))
-    }
-  }
-  
-  private let retainCallback:CFAllocatorRetainCallBack = {(info:UnsafeRawPointer?) in
-    _ = Unmanaged<FileWatcher>.fromOpaque(info!).retain()
-    return info
-  }
-  
-  private let releaseCallback:CFAllocatorReleaseCallBack = {(info:UnsafeRawPointer?) in
-    Unmanaged<FileWatcher>.fromOpaque(info!).release()
-  }
-  
-  private func selectStreamScheduler() {
-    if let queue = queue {
-      FSEventStreamSetDispatchQueue(streamRef!, queue)
-    } else {
-      FSEventStreamScheduleWithRunLoop(
-        streamRef!, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue
-      )
-    }
-  }
+public class FileWatcher {
+   let filePaths: [String]  // -- paths to watch - works on folders and file paths
+   public var callback: (CallBack)?
+   var queue: DispatchQueue?
+   var streamRef: FSEventStreamRef?
+   var hasStarted: Bool { return streamRef != nil }
+   public init(_ paths: [String]) { self.filePaths = paths }
+   /**
+    * - Parameters:
+    *    - streamRef: The stream for which event(s) occurred. clientCallBackInfo: The info field that was supplied in the context when this stream was created.
+    *    - numEvents:  The number of events being reported in this callback. Each of the arrays (eventPaths, eventFlags, eventIds) will have this many elements.
+    *    - eventPaths: An array of paths to the directories in which event(s) occurred. The type of this parameter depends on the flags
+    *    - eventFlags: An array of flag words corresponding to the paths in the eventPaths parameter. If no flags are set, then there was some change in the directory at the specific path supplied in this  event. See FSEventStreamEventFlags.
+    *    - eventIds: An array of FSEventStreamEventIds corresponding to the paths in the eventPaths parameter. Each event ID comes from the most recent event being reported in the corresponding directory named in the eventPaths parameter.
+    */
+   let eventCallback: FSEventStreamCallback = {(
+      stream: ConstFSEventStreamRef,
+      contextInfo: UnsafeMutableRawPointer?,
+      numEvents: Int,
+      eventPaths: UnsafeMutableRawPointer,
+      eventFlags: UnsafePointer<FSEventStreamEventFlags>,
+      eventIds: UnsafePointer<FSEventStreamEventId>
+      ) in
+      let fileSystemWatcher = Unmanaged<FileWatcher>.fromOpaque(contextInfo!).takeUnretainedValue()
+      let paths = Unmanaged<CFArray>.fromOpaque(eventPaths).takeUnretainedValue() as! [String]
+      (0..<numEvents).indices.forEach { index in
+         fileSystemWatcher.callback?(FileWatcherEvent(eventIds[index], paths[index], eventFlags[index]))
+      }
+   }
+   let retainCallback: CFAllocatorRetainCallBack = {(info: UnsafeRawPointer?) in
+      _ = Unmanaged<FileWatcher>.fromOpaque(info!).retain()
+      return info
+   }
+   let releaseCallback: CFAllocatorReleaseCallBack = {(info: UnsafeRawPointer?) in
+      Unmanaged<FileWatcher>.fromOpaque(info!).release()
+   }
+   func selectStreamScheduler() {
+      if let queue = queue {
+         FSEventStreamSetDispatchQueue(streamRef!, queue)
+      } else {
+         FSEventStreamScheduleWithRunLoop(
+            streamRef!, CFRunLoopGetMain(), CFRunLoopMode.defaultMode.rawValue
+         )
+      }
+   }
 }
-
+/**
+ * Convenient
+ */
 extension FileWatcher {
-  convenience init(_ paths:[String], _ callback: @escaping ((_ fileWatcherEvent:FileWatcherEvent) -> Void)) {
-    self.init(paths)
-    self.callback = callback
-  }
+   convenience init(_ paths: [String], _ callback: @escaping (CallBack)) {
+      self.init(paths)
+      self.callback = callback
+   }
 }
-
