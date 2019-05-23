@@ -3,7 +3,7 @@ import Cocoa
 public class FileWatcher {
    let filePaths: [String]  // -- paths to watch - works on folders and file paths
    public var callback: (CallBack)?
-   var queue: DispatchQueue?
+   public var queue: DispatchQueue?
    var streamRef: FSEventStreamRef?
    var hasStarted: Bool { return streamRef != nil }
    public init(_ paths: [String]) { self.filePaths = paths }
@@ -50,8 +50,13 @@ public class FileWatcher {
  * Convenient
  */
 extension FileWatcher {
-   convenience init(_ paths: [String], _ callback: @escaping (CallBack)) {
+   convenience init(
+    _ paths: [String],
+    _ callback: @escaping (CallBack),
+    _ queue: DispatchQueue
+    ) {
       self.init(paths)
       self.callback = callback
+      self.queue = queue
    }
 }
