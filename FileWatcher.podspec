@@ -16,7 +16,8 @@ Pod::Spec.new do |spec|
   spec.author       = { "eonist" => "30n1st@gmail.com" }
   spec.platform     = :osx, "10.12"
   spec.source       = { :git => "https://github.com/eonist/FileWatcher.git", :tag => "#{spec.version}" }
-  spec.source_files  = "Classes", "Classes/**/*.{h,m,swift}"
-  spec.exclude_files = "Classes/Exclude"
-  spec.public_header_files = "Classes/**/*.h"
+  spec.source_files  = ".", "**/*.{h,m,swift}"
+  spec.exclude_files = ["FileWatcherExample", "Exclude"]
+  spec.public_header_files = "**/*.h"
+  spec.swift_version = "4.0"
 end
