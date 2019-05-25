@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/swift,xcode,macos,carthage,cocoapods,objective-c
-# Edit at https://www.gitignore.io/?templates=swift,xcode,macos,carthage,cocoapods,objective-c
+# Created by https://www.gitignore.io/api/swift,xcode,visualstudiocode,macos,carthage,cocoapods,objective-c
+# Edit at https://www.gitignore.io/?templates=swift,xcode,visualstudiocode,macos,carthage,cocoapods,objective-c
 
 ### Carthage ###
 # Carthage
@@ -170,4 +170,7 @@ playground.xcworkspace
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.gitignore.io/api/swift,xcode,macos,carthage,cocoapods,objective-c
+
+### VisualStudioCode ###
+.vscode/
+# End of https://www.gitignore.io/api/swift,xcode,visualstudiocode,macos,carthage,cocoapods,objective-c
