@@ -1,20 +1,21 @@
-![mit Status](https://img.shields.io/badge/License-MIT-brightgreen.svg)
+## FileWatcher
+
+> A simple File watcher in swift.
+
+[![Cocoapods](https://img.shields.io/cocoapods/v/FileWatcher.svg)](https://cocoapods.org/pods/FileWatcher)
 ![platform](https://img.shields.io/badge/Platform-macOS-blue.svg)
 ![Lang](https://img.shields.io/badge/Language-Swift%205.0-orange.svg)
 [![codebeat badge](https://codebeat.co/badges/041905ca-d1a9-4090-81b1-564282200af4)](https://codebeat.co/projects/github-com-eonist-filewatcher-master)
 [![SwiftLint Sindre](https://img.shields.io/badge/SwiftLint-Sindre-hotpink.svg)](https://github.com/sindresorhus/swiftlint-sindre)
+[![mit Status](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-## FileWatcher
-
-A simple File watcher in swift.
-
-### installation:
+### Installation:
+- CocoaPods `pod "FileWatcher"`
 - Carthage `github "eonist/FileWatcher" "master"`
 - Manual Open `FileWatcherExample.xcodeproj`
-- CocoaPod (Coming soon)
 
 ### Example
-this will monitor your Desktop for any file changes:
+This will monitor your Desktop for any file changes:
 
 ```swift
 let filewatcher = FileWatcher([NSString(string: "~/Desktop").expandingTildeInPath])
