@@ -1,6 +1,6 @@
 ## FileWatcher
 
-> A simple File watcher in swift.
+> A simple file watcher in Swift.
 
 [![Cocoapods](https://img.shields.io/cocoapods/v/FileWatcher.svg)](https://cocoapods.org/pods/FileWatcher)
 ![platform](https://img.shields.io/badge/Platform-macOS-blue.svg)
