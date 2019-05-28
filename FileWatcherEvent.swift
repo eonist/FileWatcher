@@ -37,7 +37,7 @@ extension FileWatcherEvent {
 /**
  * Convenince
  */
-extension FileWatcherEvent {
+public extension FileWatcherEvent {
     /*File*/
     var fileCreated: Bool { return fileChange && created }
     var fileRemoved: Bool { return fileChange && removed }
