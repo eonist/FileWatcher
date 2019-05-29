@@ -37,17 +37,17 @@ extension FileWatcherEvent {
 /**
  * Convenince
  */
-public extension FileWatcherEvent {
+extension FileWatcherEvent {
     /*File*/
-    var fileCreated: Bool { return fileChange && created }
-    var fileRemoved: Bool { return fileChange && removed }
-    var fileRenamed: Bool { return fileChange && renamed }
-    var fileModified: Bool { return fileChange && modified }
+    public var fileCreated: Bool { return fileChange && created }
+    public var fileRemoved: Bool { return fileChange && removed }
+    public var fileRenamed: Bool { return fileChange && renamed }
+    public var fileModified: Bool { return fileChange && modified }
     /*Directory*/
-    var dirCreated: Bool { return dirChange && created }
-    var dirRemoved: Bool { return dirChange && removed }
-    var dirRenamed: Bool { return dirChange && renamed }
-    var dirModified: Bool { return dirChange && modified }
+    public var dirCreated: Bool { return dirChange && created }
+    public var dirRemoved: Bool { return dirChange && removed }
+    public var dirRenamed: Bool { return dirChange && renamed }
+    public var dirModified: Bool { return dirChange && modified }
 }
 /**
  * Simplifies debugging
