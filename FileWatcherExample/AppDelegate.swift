@@ -8,6 +8,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       let filewatcher = FileWatcher([NSString(string: "~/Desktop").expandingTildeInPath])
       filewatcher.callback = { event in
          print("Something happened here: \(event.path)")
+         Swift.print("event.description:  \(event.description)")
+         Swift.print("event.flags:  \(event.flags)")
       }
       filewatcher.start() // start monitoring
    }

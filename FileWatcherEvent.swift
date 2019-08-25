@@ -11,9 +11,9 @@ import Foundation
  * Swift.print("\t eventId: \(event.id) - eventFlags:  \(event.flags) - eventPath:  \(event.path)")
  */
 public class FileWatcherEvent {
-    var id: FSEventStreamEventId
+    public var id: FSEventStreamEventId
     public var path: String
-    var flags: FSEventStreamEventFlags
+    public var flags: FSEventStreamEventFlags
     init(_ eventId: FSEventStreamEventId, _ eventPath: String, _ eventFlags: FSEventStreamEventFlags) {
         self.id = eventId
         self.path = eventPath
@@ -55,12 +55,12 @@ extension FileWatcherEvent {
  * Swift.print(event.description)//Outputs: The file /Users/John/Desktop/test/text.txt was modified
  */
 extension FileWatcherEvent {
-    var description: String {
+    public var description: String {
         var result = "The \(fileChange ? "file":"directory") \(self.path) was"
-        if self.created { result += " created" }
         if self.removed { result += " removed" }
-        if self.renamed { result += " renamed" }
-        if self.modified { result += " modified" }
+        else if self.created { result += " created" }
+        else if self.renamed { result += " renamed" }
+        else if self.modified { result += " modified" }
         return result
     }
 }
