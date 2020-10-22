@@ -26,33 +26,33 @@ public class FileWatcherEvent {
  */
 extension FileWatcherEvent {
     /*general*/
-    var fileChange: Bool { return (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemIsFile)) != 0 }
-    var dirChange: Bool { return (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemIsDir)) != 0 }
+    var fileChange: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemIsFile)) != 0 }
+    var dirChange: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemIsDir)) != 0 }
     /*CRUD*/
-    var created: Bool { return (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemCreated)) != 0 }
-    var removed: Bool { return (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemRemoved)) != 0 }
-    var renamed: Bool { return (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemRenamed)) != 0 }
-    var modified: Bool { return (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemModified)) != 0 }
+    var created: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemCreated)) != 0 }
+    var removed: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemRemoved)) != 0 }
+    var renamed: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemRenamed)) != 0 }
+    var modified: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemModified)) != 0 }
 }
 /**
  * Convenince
  */
 extension FileWatcherEvent {
     /*File*/
-    public var fileCreated: Bool { return fileChange && created }
-    public var fileRemoved: Bool { return fileChange && removed }
-    public var fileRenamed: Bool { return fileChange && renamed }
-    public var fileModified: Bool { return fileChange && modified }
+    public var fileCreated: Bool { fileChange && created }
+    public var fileRemoved: Bool { fileChange && removed }
+    public var fileRenamed: Bool { fileChange && renamed }
+    public var fileModified: Bool { fileChange && modified }
     /*Directory*/
-    public var dirCreated: Bool { return dirChange && created }
-    public var dirRemoved: Bool { return dirChange && removed }
-    public var dirRenamed: Bool { return dirChange && renamed }
-    public var dirModified: Bool { return dirChange && modified }
+    public var dirCreated: Bool { dirChange && created }
+    public var dirRemoved: Bool { dirChange && removed }
+    public var dirRenamed: Bool { dirChange && renamed }
+    public var dirModified: Bool { dirChange && modified }
 }
 /**
  * Simplifies debugging
  * ## Examples:
- * Swift.print(event.description)//Outputs: The file /Users/John/Desktop/test/text.txt was modified
+ * Swift.print(event.description) // Outputs: The file /Users/John/Desktop/test/text.txt was modified
  */
 extension FileWatcherEvent {
     public var description: String {

@@ -5,14 +5,14 @@ public class FileWatcher {
    public var callback: (CallBack)?
    public var queue: DispatchQueue?
    var streamRef: FSEventStreamRef?
-   var hasStarted: Bool { return streamRef != nil }
+   var hasStarted: Bool { streamRef != nil }
    public init(_ paths: [String]) { self.filePaths = paths }
    /**
     * - Parameters:
     *    - streamRef: The stream for which event(s) occurred. clientCallBackInfo: The info field that was supplied in the context when this stream was created.
     *    - numEvents:  The number of events being reported in this callback. Each of the arrays (eventPaths, eventFlags, eventIds) will have this many elements.
     *    - eventPaths: An array of paths to the directories in which event(s) occurred. The type of this parameter depends on the flags
-    *    - eventFlags: An array of flag words corresponding to the paths in the eventPaths parameter. If no flags are set, then there was some change in the directory at the specific path supplied in this  event. See FSEventStreamEventFlags.
+    *    - eventFlags: An array of flag words corresponding to the paths in the eventPaths parameter. If no flags are set, then there was some change in the directory at the specific path supplied in this  event. See FSEventStreamEventFlags. 
     *    - eventIds: An array of FSEventStreamEventIds corresponding to the paths in the eventPaths parameter. Each event ID comes from the most recent event being reported in the corresponding directory named in the eventPaths parameter.
     */
    let eventCallback: FSEventStreamCallback = {(
