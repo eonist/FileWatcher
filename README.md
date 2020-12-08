@@ -12,6 +12,7 @@
 ### Installation:
 - CocoaPods `pod "FileWatcher"`
 - Carthage `github "eonist/FileWatcher" "master"`
+- Swift Package Manager `https://github.com/eonist/FileWatcher.git`
 - Manual Open `FileWatcherExample.xcodeproj`
 
 ### Example

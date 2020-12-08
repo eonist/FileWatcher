@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "FileWatcher"
-  spec.version      = "0.2.1"
+  spec.version      = "0.2.2"
   spec.summary      = "A library for monitoring file and folder changes in macOS."
   spec.homepage     = "https://github.com/eonist/FileWatcher"
   spec.license      = "MIT"
