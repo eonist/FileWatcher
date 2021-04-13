@@ -78,13 +78,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F1C21770228FF106005B445B = {
+		F19D311B2625DEF00006AED8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F19D311C2625DEF00006AED8 /* FileWatcher */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		F19D311C2625DEF00006AED8 /* FileWatcher */ = {
 			isa = PBXGroup;
 			children = (
 				F1C2178A228FF1D2005B445B /* FileWatcher.swift */,
 				F1C217A6228FF962005B445B /* FileWatcher+Type.swift */,
 				F1C217A4228FF953005B445B /* FileWatcher+Action.swift */,
 				F1C2178B228FF1D2005B445B /* FileWatcherEvent.swift */,
+			);
+			path = FileWatcher;
+			sourceTree = "<group>";
+		};
+		F1C21770228FF106005B445B = {
+			isa = PBXGroup;
+			children = (
+				F19D311B2625DEF00006AED8 /* Sources */,
 				F1C2177B228FF106005B445B /* FileWatcherExample */,
 				F1C21794228FF1FA005B445B /* FileWatcher_macOS */,
 				F1C2177A228FF106005B445B /* Products */,

@@ -1,25 +1,19 @@
-// swift-tools-version:5.3
-
+// swift-tools-version:5.2
 import PackageDescription
-
 let package = Package(
-  name: "FileWatcher",
-  platforms: [
-    .macOS(.v10_12),
-  ],
-  products: [
-    .library(
-      name: "FileWatcher",
-      targets: ["FileWatcher"]
-    ),
-  ],
-  targets: [
-    .target(
-      name: "FileWatcher",
-      dependencies: [],
-      path: "./",
-      exclude: ["FileWatcherExample", "FileWatcherExample.xcodeproj", "FileWatcher.podspec"]
-    )
-  ],
-  swiftLanguageVersions: [.v4]
+    name: "FileWatcher",
+    products: [
+        .library(
+            name: "FileWatcher",
+            targets: ["FileWatcher"])
+    ],
+    dependencies: [],
+    targets: [
+        .target(
+            name: "FileWatcher",
+            dependencies: []),
+        .testTarget(
+            name: "FileWatcherTests",
+            dependencies: ["FileWatcher"])
+    ]
 )

@@ -25,10 +25,10 @@ public class FileWatcherEvent {
  * - Remark: Be aware that .DS_STORE changes frequently when other files change
  */
 extension FileWatcherEvent {
-    /*general*/
+    // General
     var fileChange: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemIsFile)) != 0 }
     var dirChange: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemIsDir)) != 0 }
-    /*CRUD*/
+    // CRUD
     var created: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemCreated)) != 0 }
     var removed: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemRemoved)) != 0 }
     var renamed: Bool { (flags & FSEventStreamEventFlags(kFSEventStreamEventFlagItemRenamed)) != 0 }
@@ -38,12 +38,12 @@ extension FileWatcherEvent {
  * Convenince
  */
 extension FileWatcherEvent {
-    /*File*/
+    // File
     public var fileCreated: Bool { fileChange && created }
     public var fileRemoved: Bool { fileChange && removed }
     public var fileRenamed: Bool { fileChange && renamed }
     public var fileModified: Bool { fileChange && modified }
-    /*Directory*/
+    // Directory
     public var dirCreated: Bool { dirChange && created }
     public var dirRemoved: Bool { dirChange && removed }
     public var dirRenamed: Bool { dirChange && renamed }
