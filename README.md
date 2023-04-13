@@ -4,10 +4,9 @@
 
 > A simple file watcher in Swift
 
-[![Cocoapods](https://img.shields.io/cocoapods/v/FileWatcher.svg)](https://cocoapods.org/pods/FileWatcher)
 ![platform](https://img.shields.io/badge/Platform-macOS-blue.svg)
 ![Lang](https://img.shields.io/badge/Language-Swift%205.0-orange.svg)
-[![codebeat badge](https://codebeat.co/badges/041905ca-d1a9-4090-81b1-564282200af4)](https://codebeat.co/projects/github-com-eonist-filewatcher-master)
+[![codebeat badge](https://codebeat.co/badges/a3c16aee-139e-4729-9dde-47fff8989782)](https://codebeat.co/projects/github-com-eonist-filewatcher-master)
 [![SwiftLint Sindre](https://img.shields.io/badge/SwiftLint-Sindre-hotpink.svg)](https://github.com/sindresorhus/swiftlint-sindre)
 [![mit Status](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
