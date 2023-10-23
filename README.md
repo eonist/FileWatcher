@@ -2,7 +2,7 @@
 
 ## FileWatcher
 
-> A simple file watcher in Swift
+> A simple file-watcher in Swift
 
 ![platform](https://img.shields.io/badge/Platform-macOS-blue.svg)
 ![Lang](https://img.shields.io/badge/Language-Swift%205.0-orange.svg)
